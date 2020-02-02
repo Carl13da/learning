@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Vue 3.0 Example</title>
+  <script src="vue.global.js"></script>
+</head>
+<body>
+  <div id="app">
+    <button @click="increment">
+      Cliques: {{ count }}, dobro: {{ double }}
+    </button>
+  </div>
+
+  <script>
+    const { reactive, computed } = Vue;
+
+    const myCounter = {
+      setup() {
+        const state = reactive({
+          count: 0,
+          double: computed(() => state.count * 2)
+        });
+
+        function increment() {
+          state.count++;
+        }
+
+        return {
+          state,
+          increment
+        }
+      }
+    }
+
+    const app = new Vue.createApp({});
+    app.mount(myCounter, '#app');
+  </script>
+</body>
+</html>
